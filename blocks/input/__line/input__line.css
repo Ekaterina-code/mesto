@@ -4,9 +4,8 @@
   margin: 13px 36px 0;
 }
 
-@media screen and (max-width:880px){
+@media screen and (max-width: 880px) {
   .input__line {
     margin: 13px 22px 0;
   }
 }
-

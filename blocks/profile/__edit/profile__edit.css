@@ -3,8 +3,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-color: black;
-  color: #FFFFFF;
-  border: 1px solid #FFFFFF;
+  color: #ffffff;
+  border: 1px solid #ffffff;
   box-sizing: border-box;
   height: 24px;
   width: 24px;
@@ -15,10 +15,10 @@
   opacity: 0.6;
   cursor: pointer;
 }
-@media screen and (max-width:880px){
-    .profile__edit {
-      height: 18px;
-      width: 18px;
-      margin-left: 10px;
-    }
+@media screen and (max-width: 880px) {
+  .profile__edit {
+    height: 18px;
+    width: 18px;
+    margin-left: 10px;
+  }
 }

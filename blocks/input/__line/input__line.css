@@ -1,0 +1,12 @@
+.input__line {
+  opacity: 0.2;
+  border: 1px solid #000000;
+  margin: 13px 36px 0;
+}
+
+@media screen and (max-width:880px){
+  .input__line {
+    margin: 13px 22px 0;
+  }
+}
+

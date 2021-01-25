@@ -10,6 +10,7 @@
   width: 24px;
   transition: opacity 0.5s;
   margin-left: 18px;
+  outline: none; 
 }
 .profile__edit:hover {
   opacity: 0.6;

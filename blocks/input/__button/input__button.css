@@ -1,4 +1,7 @@
 .input__button {
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
   background-color: black;
   color: #ffffff;
   min-height: 50px;
@@ -18,6 +21,8 @@
 
 @media screen and (max-width: 880px) {
   .input__button {
+    font-size: 14px;
+    line-height: 17px;
     margin: 45px 22px 25px;
     min-height: 46px;
     min-width: 238px;

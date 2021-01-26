@@ -1,0 +1,15 @@
+.input__profile {
+  display: grid;
+  color: black;
+  grid-template-columns: 1fr 430px 1fr;
+  grid-template-rows: 1fr 330px 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+@media screen and (max-width: 880px) {
+  .input__profile {
+    grid-template-columns: 1fr 282px 1fr;
+    grid-template-rows: 1fr 322px 1fr;
+  }
+}

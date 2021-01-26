@@ -5,6 +5,11 @@
   min-height: 19px;
   min-width: 22px;
   transition: opacity 0.5s;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background-color: transparent;
 }
 
 .element__like:hover {

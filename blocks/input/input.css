@@ -1,22 +1,10 @@
 .input {
   background: rgba(0, 0, 0, 0.5);
-  color: black;
   position: fixed;
   display: none;
-  grid-template-columns: 1fr 430px 1fr;
-  grid-template-rows: 1fr 330px 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1;
-}
-
-@media screen and (max-width: 880px) {
-  .input {
-    grid-template-columns: 1fr 282px 1fr;
-    grid-template-rows: 1fr 322px 1fr;
-  }
 }

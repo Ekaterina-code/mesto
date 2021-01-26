@@ -1,37 +1,31 @@
-let likes = document.querySelectorAll(".element__like");
-for (let i = 0; i < likes.length; i++) {
-  let like = likes[i];
-  like.addEventListener("click", function () {
-    like.classList.toggle("element__like_active");
-  });
-}
-
 let title = document.querySelector(".profile__title");
 let subtitle = document.querySelector(".profile__subtitle");
 let inputTitle = document.querySelector(".input__text_type_title");
 let inputSubtitle = document.querySelector(".input__text_type_subtitle");
-
 let profile = document.querySelector(".profile__edit");
-profile.addEventListener("click", function () {
-  let input = document.querySelector(".input");
-  input.style.display = "grid";
+let input = document.querySelector(".input");
+let close = document.querySelector(".input__close");
+let form = document.querySelector(".input__edit-form");
+
+function openForm() {
+  input.classList.add("input_opened");
   inputTitle.value = title.textContent;
   inputSubtitle.value = subtitle.textContent;
-});
+}
 
-function save() {
+function closeForm() {
+  input.classList.remove("input_opened");
+}
+
+function save(e) {
+  e.preventDefault();
   title.textContent = inputTitle.value;
   subtitle.textContent = inputSubtitle.value;
   closeForm();
 }
 
-function closeForm() {
-  let input = document.querySelector(".input");
-  input.style.display = "none";
-}
+profile.addEventListener("click", openForm);
 
-let close = document.querySelector(".input__close");
 close.addEventListener("click", closeForm);
 
-let button = document.querySelector(".input__button");
-button.addEventListener("click", save);
+form.addEventListener("submit", save);

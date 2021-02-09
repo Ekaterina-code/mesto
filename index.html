@@ -19,6 +19,24 @@
         </form>
       </div>
     </div>
+    <div class="add-card">
+      <div class="add-card__modal">
+        <button type='button' class="add-card__close"></button>
+        <form name='add-card' class="add-card__add-form">
+          <h2 class="add-card__form">Новое место</h2>
+          <input type="text" name='add-card-name' placeholder="Название" class="add-card__text add-card__text_type_name">
+          <input type="text" name='add-card-link' placeholder="Ссылка на картинку" class="add-card__text add-card__text_type_link">
+          <button type='submit' class="add-card__button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="view">
+      <div class="view__image-modal">
+        <button type='button' class="view__close"></button>
+        <img class="view__image" src="./images/no_img.jpg" alt="Картинка">
+        <h2 class='view__title'>Картинка</h2>
+      </div>
+    </div>
 
     <div class="page">
       <header class="header">
@@ -39,56 +57,22 @@
         </section>
 
         <section class="elements">
-          <div class="element">
-            <img src="./images/karachaevo.jpg" alt="Карачаевск" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Карачаевск</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Домбай</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Гора Эльбрус</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="./images/dombai.jpg" alt="Домбай" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Домбай</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="./images/karachaevo.jpg" alt="Карачаево-Черкесск" class="element__image">
-            <div class="element__info">
-              <h2 class="element__title">Карачаево-Черкесск</h2>
-              <button type='button' class="element__like"></button>
-            </div>
-          </div> 
         </section>
       </main>
 
       <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
       </footer>
-
      </div>
-     <script src="./scripts/script.js"></script>
+
+    <template id="element-template">
+      <div class="element">
+        <img class="element__image">
+        <h2 class="element__title"></h2>
+        <button type='button' class="element__like"></button>            
+        <button type='button' class="element__delete"></button>
+      </div>
+    </template>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>

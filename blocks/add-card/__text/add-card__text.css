@@ -1,0 +1,23 @@
+.add-card__text {
+  padding: 0 0 10px;
+  margin: 30px 36px 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  max-width: 358px;
+  line-height: 17px;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.add-card__text:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 880px) {
+  .add-card__text {
+    margin: 30px 22px 0;
+  }
+}

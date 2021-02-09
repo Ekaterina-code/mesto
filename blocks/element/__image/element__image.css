@@ -1,6 +1,6 @@
 .element__image {
   width: 100%;
-  height: calc(100% - 79px);
+  height: 282px;
   object-fit: cover;
   grid-area: 1 / 1 / 2 / 2;
   cursor: pointer;

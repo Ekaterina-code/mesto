@@ -3,4 +3,13 @@
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr 79px;
+}
+.element::before {
+  content: "";
+  width: 0;
+  padding-bottom: 100%;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
 }

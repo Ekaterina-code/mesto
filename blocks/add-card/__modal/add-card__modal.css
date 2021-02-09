@@ -1,4 +1,4 @@
-.input__profile {
+.add-card__modal {
   display: grid;
   color: black;
   grid-template-columns: 1fr 430px 1fr;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 880px) {
-  .input__profile {
+  .input__add-card {
     grid-template-columns: 1fr 282px 1fr;
     grid-template-rows: 1fr 322px 1fr;
   }

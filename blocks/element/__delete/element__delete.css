@@ -1,22 +1,21 @@
-.element__like {
-  background-image: url(../../../images/like.svg);
+.element__delete {
+  background-image: url(../../../images/delete.svg);
   background-position: center;
   background-size: cover;
-  height: 19px;
-  width: 22px;
+  height: 20px;
+  width: 18px;
   transition: opacity 0.5s;
-  margin: 0 20px;
+  margin: 18px 15px;
   padding: 0;
   border: 0;
   outline: none;
   background-color: transparent;
-  grid-area: 2 / 1 / 3 / 2;
+  grid-area: 1 / 1 / 2 / 2;
   justify-self: end;
-  align-self: center;
   z-index: 1;
 }
 
-.element__like:hover {
+.element__delete:hover {
   opacity: 0.5;
   cursor: pointer;
 }

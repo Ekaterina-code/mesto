@@ -1,7 +1,7 @@
-.input {
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
+.view {
+  background: rgba(0, 0, 0, 0.9);
   display: grid;
+  position: fixed;
   visibility: hidden;
   top: 0;
   right: 0;

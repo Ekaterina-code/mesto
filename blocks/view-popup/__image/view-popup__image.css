@@ -1,0 +1,5 @@
+.view-popup__image {
+  grid-area: 2 / 2 / 3 / 3;
+  max-width: 75vw;
+  max-height: 75vh;
+}

@@ -7,7 +7,7 @@
     min-height: 50px;
     min-width: 358px;
     border-radius: 2px;
-    margin: 48px 36px 37px;
+    margin: 15px 36px 37px;
     padding: 0;
     transition: opacity 0.5s;
     border: 0;
@@ -23,7 +23,7 @@
     .popup__button {
         font-size: 14px;
         line-height: 17px;
-        margin: 45px 22px 25px;
+        margin: 15px 22px 25px;
         min-height: 46px;
         min-width: 238px;
     }

@@ -35,6 +35,7 @@ const inputTitle = profilePopup.querySelector(".popup__input_type_title");
 const inputSubtitle = profilePopup.querySelector(".popup__input_type_subtitle");
 const profileEditForm = profilePopup.querySelector(".popup__form");
 const profilePopupClose = profilePopup.querySelector(".popup__close");
+const profilePopupOverlay = profilePopup.querySelector(".popup__overlay");
 
 
 const addCardPopup = document.querySelector(".add-card-popup");
@@ -42,9 +43,11 @@ const inputName = addCardPopup.querySelector(".popup__input_type_name");
 const inputLink = addCardPopup.querySelector(".popup__input_type_link");
 const elementAddForm = addCardPopup.querySelector(".popup__form");
 const addCardPopupClose = addCardPopup.querySelector(".popup__close");
+const addCardPopupOverlay = addCardPopup.querySelector(".popup__overlay");
 
 const viewPopup = document.querySelector(".view-popup");
 const viewPopupClose = viewPopup.querySelector(".popup__close");
+const viewPopupOverlay = viewPopup.querySelector(".popup__overlay");
 const viewPopupImage = viewPopup.querySelector(".view-popup__image");
 const viewPopupTitle = viewPopup.querySelector(".view-popup__title");
 
@@ -60,14 +63,23 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
+function closeProfileEditFormByKey (evt)  {
+  if (evt.key === "Escape") {
+    closeProfileEditForm();
+  }
+}
+
 function openProfileEditForm() {
   openPopup(profilePopup);
   inputTitle.value = profileTitle.textContent;
   inputSubtitle.value = profileSubtitle.textContent;
+  document.addEventListener("keydown", closeProfileEditFormByKey);
 }
 
 function closeProfileEditForm() {
   closePopup(profilePopup);
+  document.removeEventListener("keydown", closeProfileEditFormByKey);
+  profileEditForm.reset();
 }
 
 function saveProfileEditForm(e) {
@@ -77,40 +89,27 @@ function saveProfileEditForm(e) {
   closeProfileEditForm();
 }
 
-function openElementAddForm() {
-  openPopup(addCardPopup);
-  resetAddCardText(inputLink);
-  resetAddCardText(inputName);
-}
-
-function closeElementAddForm() {
-  closePopup(addCardPopup);
-}
-
-function resetAddCardText(inputText) {
-  inputText.value = "";
-  inputText.classList.remove("add-card__text_failed");
-}
-
-function saveElementAddForm(e) {
-  e.preventDefault();
-
-  validateAddCardText(inputLink);
-  validateAddCardText(inputName);
-
-  const link = inputLink.value;
-  const name = inputName.value;
-
-  if (name && link) {
-    addElement(link, name);
+function closeElementAddFormByKey (evt)  {
+  if (evt.key === "Escape") {
     closeElementAddForm();
   }
 }
 
-function validateAddCardText(inputText) {
-  if (!inputText.value) {
-    inputText.classList.add("popup__input_failed");
-  }
+function openElementAddForm() {
+  openPopup(addCardPopup);
+  document.addEventListener("keydown", closeElementAddFormByKey);
+}
+
+function closeElementAddForm() {
+  closePopup(addCardPopup);
+  document.removeEventListener("keydown", closeElementAddFormByKey);
+  elementAddForm.reset();
+}
+
+function saveElementAddForm(e) {
+  e.preventDefault();
+  addElement(inputLink.value, inputName.value);
+  closeElementAddForm();
 }
 
 function addElement(link, name) {
@@ -143,24 +142,40 @@ function openView(link, name) {
   viewPopupImage.src = link;
   viewPopupImage.alt = name;
   viewPopupTitle.textContent = name;
+  document.addEventListener("keydown", closeViewByKey);
 }
 
 function closeView() {
   closePopup(viewPopup);
+  document.removeEventListener("keydown", closeViewByKey);
+}
+
+function closeViewByKey(evt) {
+  if (evt.key==="Escape") {
+    closeView();
+  }
 }
 
 viewPopupClose.addEventListener("click", closeView);
+viewPopupOverlay.addEventListener("click", closeView)
 
 elementAddButton.addEventListener("click", openElementAddForm);
-
 addCardPopupClose.addEventListener("click", closeElementAddForm);
-
-profileEditButton.addEventListener("click", openProfileEditForm);
-
-profilePopupClose.addEventListener("click", closeProfileEditForm);
-
-profileEditForm.addEventListener("submit", saveProfileEditForm);
-
+addCardPopupOverlay.addEventListener("click", closeElementAddForm);
 elementAddForm.addEventListener("submit", saveElementAddForm);
 
+profileEditButton.addEventListener("click", openProfileEditForm);
+profilePopupClose.addEventListener("click", closeProfileEditForm);
+profilePopupOverlay.addEventListener("click", closeProfileEditForm);
+profileEditForm.addEventListener("submit", saveProfileEditForm);
+
 inintializeElements();
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});

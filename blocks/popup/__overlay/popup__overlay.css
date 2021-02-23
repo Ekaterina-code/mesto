@@ -1,0 +1,4 @@
+.popup__overlay {
+    grid-area: 1 / 1 / 4 / 4;
+    cursor: pointer;
+}

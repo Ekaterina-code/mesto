@@ -10,28 +10,35 @@
   <body class="body">
     <div class="popup profile-popup">
       <div class="popup__modal">
+        <div class="popup__overlay"></div>
         <button type='button' class="popup__close"></button>
         <form name='profile-info' class="popup__form">
           <h2 class="popup__header">Редактировать профиль</h2>
-          <input type="text" name='profile-title' placeholder="Имя" class="popup__input popup__input_type_title">
-          <input type="text" name='profile-subtitle' placeholder="Профессия" class="popup__input popup__input_type_subtitle">
+          <input id="profile-title" type="text" name='profile-title' minlength=2 maxlength=40 required placeholder="Имя" class="popup__input popup__input_type_title">
+          <span class="profile-title-error popup__error"></span>
+          <input id="profile-subtitle" type="text" name='profile-subtitle' minlength=2 maxlength=200 required placeholder="Профессия" class="popup__input popup__input_type_subtitle">
+          <span class="profile-subtitle-error popup__error"></span>
           <button type='submit' class="popup__button">Сохранить</button>
         </form>
       </div>
     </div>
     <div class="popup add-card-popup">
       <div class="popup__modal">
+        <div class="popup__overlay"></div>
         <button type='button' class="popup__close"></button>
         <form name='add-card' class="popup__form">
           <h2 class="popup__header">Новое место</h2>
-          <input type="text" name='add-card-name' placeholder="Название" class="popup__input popup__input_type_name">
-          <input type="text" name='add-card-link' placeholder="Ссылка на картинку" class="popup__input popup__input_type_link">
+          <input id='add-card-name' type="text" name='add-card-name' minlength=2 maxlength=30 required placeholder="Название" class="popup__input popup__input_type_name">
+          <span class="add-card-name-error popup__error"></span>
+          <input id='add-card-link' type="url" name='add-card-link' required placeholder="Ссылка на картинку" class="popup__input popup__input_type_link">
+          <span class="add-card-link-error popup__error"></span>
           <button type='submit' class="popup__button">Создать</button>
         </form>
       </div>
     </div>
     <div class="popup view-popup">
       <div class="view-popup__modal">
+        <div class="popup__overlay"></div>
         <button type='button' class="popup__close"></button>
         <img class="view-popup__image" src="./images/no_img.jpg" alt="Картинка">
         <h2 class='view-popup__title'>Картинка</h2>
@@ -73,6 +80,7 @@
         <button type='button' class="element__delete"></button>
       </div>
     </template>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/script.js"></script>
   </body>
 </html>

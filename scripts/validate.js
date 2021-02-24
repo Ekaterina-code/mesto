@@ -1,31 +1,32 @@
 function enableValidation(settings) {
     const forms = document.querySelectorAll(settings.formSelector);
     forms.forEach(form => {
+        const button = form.querySelector(settings.submitButtonSelector);
         const inputs = form.querySelectorAll(settings.inputSelector);
-        inputs.forEach(input => input.addEventListener("input", () => validate(form, input, settings)));
-
-        form.addEventListener('reset', () => resetFormValidation(form, inputs, settings));
+        inputs.forEach(input => {
+            input.addEventListener("input", () => validate(form, input, inputs, button, settings));
+        });
+        form.addEventListener('reset', () => resetFormValidation(form, inputs, button, settings));
     })
 }
 
-function resetFormValidation(form, inputs, settings)
+function resetFormValidation(form, inputs, button, settings)
 {
     inputs.forEach(input =>{
         const errorElement = getErrorElement(form, input);
         hideInputError(errorElement, input, settings.inputErrorClass, settings.errorClass)
     });
-    validateForm(form, settings.inputSelector, settings.submitButtonSelector,  settings.inactiveButtonClass);
+    validateForm(form, inputs, button, settings.inactiveButtonClass);
 }
 
-
-function validate(form, input, settings) {
+function validate(form, input, inputs, button, settings) {
     const errorElement = getErrorElement(form, input);
     if (!input.validity.valid) {
         showInputError(errorElement, input, settings.inputErrorClass, settings.errorClass);
     } else {
         hideInputError(errorElement, input, settings.inputErrorClass, settings.errorClass);
     }
-    validateForm(form, settings.inputSelector, settings.submitButtonSelector,  settings.inactiveButtonClass);
+    validateForm(form, inputs, button, settings.inactiveButtonClass);
 }
 
 function getErrorElement(form, input) {
@@ -44,13 +45,11 @@ function hideInputError(errorElement, inputElement, inputErrorClass, errorClass)
     errorElement.textContent = '';
 }
 
-function validateForm(form, inputSelector, submitButtonSelector, inactiveButtonClass) {
-    const inputs = form.querySelectorAll(inputSelector);
+function validateForm(form, inputs, button, inactiveButtonClass) {
     let isValidForm = true;
     inputs.forEach(input => {
-        isValidForm = isValidForm & input.validity.valid;
+        isValidForm = isValidForm && input.validity.valid;
     });
-    const button = form.querySelector(submitButtonSelector);
     if (isValidForm) {
         button.classList.remove(inactiveButtonClass);
     }

@@ -1,3 +1,6 @@
+import {Card} from "./card.js";
+import {enableValidation} from "./validate.js";
+
 const initialCards = [
   {
     name: "Архыз",
@@ -47,7 +50,6 @@ const viewPopupTitle = viewPopup.querySelector(".view-popup__title");
 
 const elements = document.querySelector(".elements");
 
-const elementTemplate = document.querySelector("#element-template").content;
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -92,24 +94,8 @@ function saveElementAddForm(e) {
 }
 
 function addElement(link, name) {
-  const element = elementTemplate.querySelector(".element").cloneNode(true);
-
-  const like = element.querySelector(".element__like");
-  like.addEventListener("click", () => like.classList.toggle("element__like_active")
-  );
-
-  const del = element.querySelector(".element__delete");
-  del.addEventListener("click", () => element.remove());
-
-  const image = element.querySelector(".element__image");
-  image.addEventListener("click", () => openView(link, name));
-  image.src = link;
-  image.alt = name;
-
-  const title = element.querySelector(".element__title");
-  title.textContent = name;
-
-  elements.prepend(element);
+  const card = new Card("#element-template", link, name, openView);
+  elements.prepend(card.getElement());
 }
 
 function inintializeElements() {
@@ -117,10 +103,10 @@ function inintializeElements() {
 }
 
 function openView(link, name) {
-  openPopup(viewPopup);
   viewPopupImage.src = link;
   viewPopupImage.alt = name;
   viewPopupTitle.textContent = name;
+  openPopup(viewPopup);
 }
 
 function inintializeClosePopup() {

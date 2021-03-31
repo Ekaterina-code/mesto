@@ -1,4 +1,5 @@
 import {Card} from "./card.js";
+import {Section} from "./section.js";
 import {enableValidation} from "./validate.js";
 
 const initialCards = [
@@ -48,7 +49,12 @@ const viewPopup = document.querySelector(".view-popup");
 const viewPopupImage = viewPopup.querySelector(".view-popup__image");
 const viewPopupTitle = viewPopup.querySelector(".view-popup__title");
 
-const elements = document.querySelector(".elements");
+const section = new Section(
+    {
+      items: initialCards,
+      renderer: (item) => renderItem(item.link, item.name)
+    },
+    ".elements");
 
 
 function openPopup(popup) {
@@ -89,17 +95,17 @@ function openElementAddForm() {
 
 function saveElementAddForm(e) {
   e.preventDefault();
-  addElement(inputLink.value, inputName.value);
+  const element = renderItem(inputLink.value, inputName.value);
+  section.addItem(element);
   closePopup(addCardPopup);
 }
 
-function addElement(link, name) {
-  const card = new Card("#element-template", link, name, openView);
-  elements.prepend(card.getElement());
+function renderItem(link, name){
+  return new Card("#element-template", link, name, openView).getElement();
 }
 
-function inintializeElements() {
-  initialCards.forEach((item) => addElement(item.link, item.name));
+function initializeElements() {
+  section.render();
 }
 
 function openView(link, name) {
@@ -128,7 +134,7 @@ elementAddForm.addEventListener("submit", saveElementAddForm);
 profileEditButton.addEventListener("click", openProfileEditForm);
 profileEditForm.addEventListener("submit", saveProfileEditForm);
 
-inintializeElements();
+initializeElements();
 inintializeClosePopup();
 
 enableValidation({

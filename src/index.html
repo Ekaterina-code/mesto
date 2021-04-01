@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto Russia</title>
   </head>
 
@@ -40,19 +39,19 @@
       <div class="view-popup__modal">
         <div class="popup__overlay"></div>
         <button type='button' class="popup__close"></button>
-        <img class="view-popup__image" src="./images/no_img.jpg" alt="Картинка">
+        <img class="view-popup__image" src="<%=require('./images/no_img.jpg')%>" alt="Картинка">
         <h2 class='view-popup__title'>Картинка</h2>
       </div>
     </div>
 
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Логотип Место" class="header__logo">
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип Место" class="header__logo">
       </header>
 
       <main class="content">
         <section class="profile">
-          <img src="./images/avatar.jpg" alt="Картинка Аватар" class="profile__avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Картинка Аватар" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__title-box"> 
               <h1 class="profile__title">Жак-Ив Кусто</h1> 
@@ -74,20 +73,11 @@
 
     <template id="element-template">
       <div class="element">
-        <img class="element__image" alt="Картинка" src="./images/no_img.jpg">
+        <img class="element__image" alt="Картинка" src="<%=require('./images/no_img.jpg')%>">
         <h2 class="element__title"></h2>
         <button type='button' class="element__like"></button>            
         <button type='button' class="element__delete"></button>
       </div>
     </template>
-    <script type="module" src="./scripts/Popup.js"></script>
-    <script type="module" src="./scripts/PopupWithForm.js"></script>
-    <script type="module" src="./scripts/PopupWithImage.js"></script>
-    <script type="module" src="./scripts/UserInfo.js"></script>
-    <script type="module" src="./scripts/Validate.js"></script>
-    <script type="module" src="./scripts/Card.js"></script>
-    <script type="module" src="./scripts/Section.js"></script>
-    <script type="module" src="./scripts/FormValidator.js"></script>
-    <script type="module" src="./index.js"></script>
   </body>
 </html>

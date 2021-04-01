@@ -4,6 +4,7 @@ import {PopupWithForm} from "./scripts/PopupWithForm.js";
 import {PopupWithImage} from "./scripts/PopupWithImage.js";
 import {UserInfo} from "./scripts/UserInfo.js";
 import {enableValidation} from "./scripts/Validate.js";
+import './pages/index.css';
 
 const initialCards = [
     {

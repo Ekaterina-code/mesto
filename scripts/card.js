@@ -1,9 +1,9 @@
 export class Card {
-    constructor(selector, link, name, openView) {
+    constructor(selector, link, name, handleCardClick) {
         this.selector = selector;
         this.link = link;
         this.name = name;
-        this.openView = openView;
+        this.handleCardClick = handleCardClick;
     }
 
     getElement() {
@@ -48,7 +48,7 @@ export class Card {
 
     _setImageEventListener(element) {
         const image = this._getImage(element);
-        image.addEventListener("click", () => this._openView());
+        image.addEventListener("click", () => this._handleCardClick());
     }
 
     _getRawElement() {
@@ -72,7 +72,7 @@ export class Card {
         return element.querySelector(".element__image");
     }
 
-    _openView() {
-        this.openView(this.link, this.name);
+    _handleCardClick() {
+        this.handleCardClick(this.link, this.name);
     }
 }

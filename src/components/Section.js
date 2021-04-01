@@ -2,7 +2,7 @@ export class Section {
     constructor(settings, selector) {
         this.renderer = settings.renderer;
         this.items = settings.items;
-        this.selector = selector;
+        this.elements = document.querySelector(selector);;
     }
 
     render() {
@@ -13,7 +13,6 @@ export class Section {
     }
 
     addItem(element) {
-        const elements = document.querySelector(this.selector);
-        elements.prepend(element);
+        this.elements.prepend(element);
     }
 }

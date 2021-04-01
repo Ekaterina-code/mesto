@@ -5,6 +5,7 @@ export class PopupWithForm extends Popup {
         super(selectorPopup);
         this.submitCallback = submitCallback;
         this.form = this.popup.querySelector(".popup__form");
+        this.inputs = this.form.querySelectorAll(".popup__input");
     }
 
     close() {
@@ -13,8 +14,7 @@ export class PopupWithForm extends Popup {
     }
 
     setInputValues(inputValues) {
-        const inputs = this.form.querySelectorAll(".popup__input");
-        inputs.forEach(input => input.value = inputValues.get(input.id));
+        this.inputs.forEach(input => input.value = inputValues.get(input.id));
     }
 
     setEventListeners() {
@@ -29,8 +29,7 @@ export class PopupWithForm extends Popup {
 
     _getInputValues() {
         const inputValues = new Map();
-        const inputs = this.form.querySelectorAll(".popup__input");
-        inputs.forEach(input => inputValues.set(input.id, input.value));
+        this.inputs.forEach(input => inputValues.set(input.id, input.value));
         return inputValues;
     }
 }

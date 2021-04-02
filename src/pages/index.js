@@ -94,7 +94,7 @@ function openProfileEdit() {
 }
 
 function renderItem(item) {
-    return new Card("#element-template", item.link, item.name, popupWithImage.open.bind(popupWithImage)).getElement();
+    return new Card("#element-template", item.link, item.name, () => popupWithImage.open).getElement();
 }
 
 function initialize() {

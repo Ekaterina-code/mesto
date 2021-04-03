@@ -94,11 +94,11 @@ function openProfileEdit() {
 }
 
 function renderItem(item) {
-    return new Card("#element-template", item.link, item.name, () => popupWithImage.open).getElement();
+    return new Card("#element-template", item.link, item.name, popupWithImage.open.bind(popupWithImage)).getElement();
 }
 
 function initialize() {
-    elementAddButton.addEventListener("click", appCardPopup.open.bind(appCardPopup));
+    elementAddButton.addEventListener("click", () => appCardPopup.open());
     profileEditButton.addEventListener("click", openProfileEdit);
     profileEditPopup.setEventListeners();
     appCardPopup.setEventListeners();

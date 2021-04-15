@@ -1,75 +1,83 @@
 export class Card {
-    constructor(selector, link, name, handleCardClick) {
-        this.selector = selector;
-        this.link = link;
-        this.name = name;
+    constructor(selector, info, handleCardClick, handleLikeClick, handleDelClick) {
+        const elementTemplate = document.querySelector(selector).content;
+        this.element = elementTemplate.querySelector(".element").cloneNode(true);
+        this.titleElement = this.element.querySelector(".element__title");
+        this.likeElement = this.element.querySelector(".element__like");
+        this.likeCounterElement = this.element.querySelector(".element__like-counter");
+        this.deleteElement = this.element.querySelector(".element__delete");
+        this.imageElement = this.element.querySelector(".element__image");
+        this._id = info._id;
+        this.link = info.link;
+        this.name = info.name;
+        this.likesInfo = info.likesInfo;
+        this.isDeleteEnable = info.isDeleteEnable
         this.handleCardClick = handleCardClick;
+        this.handleLikeClick = handleLikeClick;
+        this.handleDelClick = handleDelClick;
     }
 
-    getElement() {
-        const element = this._getRawElement();
-        this._setLikeEventListener(element);
-        this._setDelEventListener(element);
-        this._setImageEventListener(element);
-        this._setImage(element);
-        this._setTitle(element);
-        return element;
+    render() {
+        if (this.isDeleteEnable) {
+            this._setDelEventListener();
+        } else {
+            this.deleteElement.remove()
+        }
+
+        this._setLikeEventListener();
+        this._setImageEventListener();
+        this._setImage();
+        this._setTitle();
+        this._renderLike();
+
+        return this.element;
     }
 
-    _setImage(element) {
-        const image = this._getImage(element);
-        image.src = this.link;
-        image.alt = this.name;
+    _setImage() {
+        this.imageElement.src = this.link;
+        this.imageElement.alt = this.name;
     }
 
-    _setTitle(element) {
-        const title = this._getTitle(element);
-        title.textContent = this.name;
+    _setTitle() {
+        this.titleElement.textContent = this.name;
     }
 
-    _setLikeEventListener(element) {
-        const like = this._getLike(element);
-        like.addEventListener("click", this._handleLikeClick);
+    _setLikeEventListener() {
+        this.likeElement.addEventListener("click", this._handleLikeClick.bind(this));
     }
 
-    _handleLikeClick(evt) {
-        const like = evt.target;
-        like.classList.toggle("element__like_active");
+    _handleLikeClick() {
+        const newState = !this.likesInfo.state;
+        this.likesInfo = {
+            state: newState,
+            count: this.likesInfo.count + (newState ? 1 : -1),
+        };
+        this._renderLike();
+
+        this.likeElement.classList.toggle("element__like_active", newState);
+        this.handleLikeClick(this._id, newState)
+            .then(likesInfo => {
+                this.likesInfo = likesInfo;
+                this._renderLike();
+            })
     }
 
-    _setDelEventListener(element) {
-        const del = this._getDel(element);
-        del.addEventListener("click", () => this._handleDelClick(element));
+    _renderLike() {
+        this.likeElement.classList.toggle("element__like_active", this.likesInfo.state);
+        this.likeCounterElement.classList.toggle("element__like-counter_visible", this.likesInfo.count > 0);
+        this.likeCounterElement.textContent = this.likesInfo.count;
     }
 
-    _handleDelClick(element) {
-        element.remove();
+    _setDelEventListener() {
+        this.deleteElement.addEventListener("click", () => this._handleDelClick());
     }
 
-    _setImageEventListener(element) {
-        const image = this._getImage(element);
-        image.addEventListener("click", () => this._handleCardClick());
+    _handleDelClick() {
+        this.handleDelClick(this);
     }
 
-    _getRawElement() {
-        const elementTemplate = document.querySelector(this.selector).content;
-        return elementTemplate.querySelector(".element").cloneNode(true);
-    }
-
-    _getTitle(element) {
-        return element.querySelector(".element__title");
-    }
-
-    _getLike(element) {
-        return element.querySelector(".element__like");
-    }
-
-    _getDel(element) {
-        return element.querySelector(".element__delete");
-    }
-
-    _getImage(element) {
-        return element.querySelector(".element__image");
+    _setImageEventListener() {
+        this.imageElement.addEventListener("click", () => this._handleCardClick());
     }
 
     _handleCardClick() {

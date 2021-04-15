@@ -2,7 +2,6 @@ import {Card} from "../components/Card.js";
 import {Section} from "../components/Section.js";
 import {PopupWithForm} from "../components/PopupWithForm.js";
 import {PopupWithImage} from "../components/PopupWithImage.js";
-import {PopupWithDialog} from "../components/PopupWithDialog.js";
 import {UserInfo} from "../components/UserInfo.js";
 import {Api} from "../components/Api.js";
 import {enableValidation} from "../components/Validate.js";
@@ -36,6 +35,10 @@ const avatarEditFormInputsId = {
     avatar: "profile-avatar",
 }
 
+const commitDeleteCardFormInputsId = {
+    cardId: "card-id",
+}
+
 const userInfoSelectors = {
     nameElement: ".profile__title",
     infoElement: ".profile__subtitle",
@@ -46,20 +49,20 @@ const userInfo = new UserInfo(userInfoSelectors);
 const popupWithImage = new PopupWithImage(".view-popup");
 const profileEditPopup = new PopupWithForm(".profile-popup", handleProfileEdit);
 const avatarEditPopup = new PopupWithForm(".avatar-popup", handleAvatarEdit);
-const commitDeleteCardDialog = new PopupWithDialog(".commit-popup", handleDeleteCard);
+const commitDeleteCardPopup = new PopupWithForm(".commit-popup", handleDeleteCard);
 
 const profileEditButton = document.querySelector(".profile__edit");
 const avatarEditButton = document.querySelector(".profile__avatar-button");
 const elementAddButton = document.querySelector(".profile__add-button");
 
-function handleFormPopupPromise(popup, promise) {
+function handleFormPopupPromise(popup, promise, loaderText) {
     const currentText = popup.getSubmitText();
-    popup.setSubmitText("Сохранение...")
+    popup.setSubmitText(loaderText)
     promise()
         .catch(handleError)
         .finally(() => {
+            popup.close();
             popup.setSubmitText(currentText);
-            popup.close()
         });
 }
 
@@ -69,13 +72,13 @@ function handleProfileEdit(inputsMap, popup) {
         info: inputsMap.get(profileEditFormInputsId.info)
     }
     const setUserInfo = () => api.setUserInfo(info).then(userInfo.setUserInfo.bind(userInfo));
-    handleFormPopupPromise(popup, setUserInfo);
+    handleFormPopupPromise(popup, setUserInfo, "Сохранение...");
 }
 
 function handleAvatarEdit(inputsMap, popup) {
     const avatar = inputsMap.get(avatarEditFormInputsId.avatar);
     const setUserAvatar = () => api.setUserAvatar(avatar).then(() => userInfo.setAvatar(avatar));
-    handleFormPopupPromise(popup, setUserAvatar);
+    handleFormPopupPromise(popup, setUserAvatar, "Сохранение...");
 }
 
 function handleAddCardSubmit(inputsMap, section, userId, popup) {
@@ -84,19 +87,13 @@ function handleAddCardSubmit(inputsMap, section, userId, popup) {
         link: inputsMap.get("add-card-link")
     }
     const addCard = () => api.addCard(cardInfo).then(item => section.addItem(item));
-    handleFormPopupPromise(popup, addCard);
+    handleFormPopupPromise(popup, addCard, "Сохранение...");
 }
 
-function handleDeleteCard(context, popup) {
-    const currentText = popup.getButtonText();
-    popup.setButtonText("Удаление...")
-    api.removeCard(context._id)
-        .then(() => context.element.remove())
-        .catch(handleError)
-        .finally(() => {
-            popup.close();
-            popup.setButtonText(currentText);
-        });
+function handleDeleteCard(inputsMap, popup) {
+    const cardId = inputsMap.get(commitDeleteCardFormInputsId.cardId);
+    const delCard = ()=> api.removeCard(cardId).then(() => document.querySelector("#card_" + cardId).remove());
+    handleFormPopupPromise(popup, delCard, "Удаление...");
 }
 
 function openPopupWithFilledInputs(popup, inputValues) {
@@ -130,19 +127,19 @@ function renderItem(item, myId) {
         isDeleteEnable: item.ownerId == myId,
     }
     const handleCardClick = popupWithImage.open.bind(popupWithImage);
-    const handleLikeClick = (cardId, state) => {
-        const likes = state
-            ? api.setCardLike(cardId)
-            : api.removeCardLike(cardId);
-
-        return likes.then(res => {
-            return createLikeInfo(res, myId)
-        });
+    const handleLikeClick = (card, state) => {
+        return api.setCardLikeState(card._id, state)
+            .then(res => card.setLikeInfo(createLikeInfo(res, myId)))
+            .catch(handleError);
     };
 
-    const handleDelClick = (context) => commitDeleteCardDialog.open(context);
-    return new Card("#element-template", cardInfo, handleCardClick, handleLikeClick, handleDelClick)
-        .render();
+    const handleDelClick = (cardId) => {
+        const inputs = new Map([[commitDeleteCardFormInputsId.cardId, cardId]])
+        commitDeleteCardPopup.setInputValues(inputs);
+        commitDeleteCardPopup.open();
+    }
+    const card = new Card("#element-template", cardInfo, handleCardClick, handleLikeClick, handleDelClick);
+    return card.render();
 }
 
 function createLikeInfo(likes, myId) {
@@ -160,10 +157,10 @@ function handleError(err) {
 function initialize() {
     profileEditButton.addEventListener("click", openProfileEdit);
     avatarEditButton.addEventListener("click", openAvatarEdit);
+    commitDeleteCardPopup.setEventListeners();
     profileEditPopup.setEventListeners();
     avatarEditPopup.setEventListeners();
     popupWithImage.setEventListeners();
-    commitDeleteCardDialog.setEventListeners();
     enableValidation(formsValidationSettings);
 
     api.getUserInfo()
@@ -187,9 +184,10 @@ function initializeCards(userId) {
 function initializeCardsSection(initialCards, userId) {
     const sectionSettings = {items: initialCards, renderer: (item) => renderItem(item, userId)};
     const section = new Section(sectionSettings, ".elements");
-    const submitButtonCallback = (inputsMap, sender) => handleAddCardSubmit(inputsMap, section, userId, sender);
+    const addButtonCallback = (inputsMap, sender) => handleAddCardSubmit(inputsMap, section, userId, sender);
 
-    const appCardPopup = new PopupWithForm(".add-card-popup", submitButtonCallback);
+    const appCardPopup = new PopupWithForm(".add-card-popup", addButtonCallback);
+
     appCardPopup.setEventListeners();
 
     elementAddButton.addEventListener("click", () => appCardPopup.open());

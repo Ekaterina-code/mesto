@@ -1,9 +1,0 @@
-.commit-popup__dialog {
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    grid-area: 2 / 2 / 3 / 3;
-    width: 100%;
-}

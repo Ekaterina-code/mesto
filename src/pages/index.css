@@ -5,7 +5,6 @@
 @import url(../blocks/avatar-popup/avatar-popup.css);
 @import url(../blocks/avatar-popup/__modal/avatar-popup__modal.css);
 @import url(../blocks/commit-popup/commit-popup.css);
-@import url(../blocks/commit-popup/__dialog/commit-popup__dialog.css);
 @import url(../blocks/commit-popup/__modal/commit-popup__modal.css);
 @import url(../blocks/commit-popup/__header/commit-popup__header.css);
 @import url(../blocks/view-popup/view-popup.css);

@@ -59,10 +59,11 @@
       <div class="commit-popup__modal">
         <div class="popup__overlay"></div>
         <button type='button' class="popup__close"></button>
-        <div class="commit-popup__dialog">
+        <form class="popup__form">
           <h2 class="commit-popup__header">Вы уверены?</h2>
-          <button type='button' class="popup__button">Да</button>
-        </div>
+          <input type="hidden" id="card-id" class="popup__input">
+          <button type='submit' class="popup__button">Да</button>
+        </form>
       </div>
     </div>
     <div class="page">

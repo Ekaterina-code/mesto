@@ -1,0 +1,15 @@
+.commit-popup__modal {
+    display: grid;
+    color: black;
+    grid-template-columns: 1fr 430px 1fr;
+    grid-template-rows: 1fr 181px 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+@media screen and (max-width: 880px) {
+    .commit-popup__modal {
+        grid-template-columns: 1fr 282px 1fr;
+        grid-template-rows: 1fr 181px 1fr;
+    }
+}

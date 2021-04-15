@@ -1,0 +1,15 @@
+.profile__avatar-button {
+    grid-area: 1 / 1 / 2 / 2;
+    opacity: 0;
+    background-color: black;
+    border: 0;
+}
+
+.profile__avatar-button:hover {
+    background-image: url("../../../images/avatar-edit.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    opacity: 0.8;
+    border: none;
+    outline: none;
+}

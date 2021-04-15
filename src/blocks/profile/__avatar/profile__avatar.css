@@ -1,5 +1,8 @@
 .profile__avatar {
-  height: 120px;
-  border-radius: 60px;
-  overflow: hidden;
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    grid-area: 1 / 1 / 2 / 2;
+    border-radius: 60px;
+    overflow: hidden;
 }

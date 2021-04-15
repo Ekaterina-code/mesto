@@ -23,7 +23,7 @@ export class Card {
         } else {
             this.deleteElement.remove()
         }
-
+        this.element.id = "card_" + this._id;
         this._setLikeEventListener();
         this._setImageEventListener();
         this._setImage();
@@ -31,6 +31,11 @@ export class Card {
         this._renderLike();
 
         return this.element;
+    }
+
+    setLikeInfo(likesInfo){
+        this.likesInfo = likesInfo;
+        this._renderLike();
     }
 
     _setImage() {
@@ -52,14 +57,10 @@ export class Card {
             state: newState,
             count: this.likesInfo.count + (newState ? 1 : -1),
         };
-        this._renderLike();
-
-        this.likeElement.classList.toggle("element__like_active", newState);
-        this.handleLikeClick(this._id, newState)
-            .then(likesInfo => {
-                this.likesInfo = likesInfo;
-                this._renderLike();
-            })
+        // проставляем предварительно рассчитаное likesInfo, чтобы создать иллюзию быстро работающего приложения
+        // внутри handleLikeClick выполнится повторный вызов setLikeInfo с данными полученными от сервера
+        this.setLikeInfo(this.likesInfo);
+        this.handleLikeClick(this, newState);
     }
 
     _renderLike() {
@@ -73,7 +74,7 @@ export class Card {
     }
 
     _handleDelClick() {
-        this.handleDelClick(this);
+        this.handleDelClick(this._id);
     }
 
     _setImageEventListener() {

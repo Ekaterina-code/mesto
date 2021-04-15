@@ -39,13 +39,9 @@ export class Api {
             .then(this._toCardInfo.bind(this));
     }
 
-    setCardLike(cardId) {
-        return this._sendRequest(`cards/likes/${cardId}`, 'PUT')
-            .then(this._getLikeUserIds.bind(this));
-    }
-
-    removeCardLike(cardId) {
-        return this._sendRequest(`cards/likes/${cardId}`, 'DELETE')
+    setCardLikeState(cardId, likeState) {
+        const method = likeState ? 'PUT' : 'DELETE';
+        return this._sendRequest(`cards/likes/${cardId}`, method)
             .then(this._getLikeUserIds.bind(this));
     }
 

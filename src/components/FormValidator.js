@@ -3,7 +3,9 @@ export class FormValidator {
         this.settings = settings;
         this.form = form;
         this.button = this.form.querySelector(this.settings.submitButtonSelector);
-        this.inputs = Array.from(this.form.querySelectorAll(this.settings.inputSelector));
+        this.inputs = Array
+            .from(this.form.querySelectorAll(this.settings.inputSelector))
+            .filter(input => input.type != "hidden");
     }
 
     enableValidation() {

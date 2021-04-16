@@ -17,10 +17,6 @@ export class UserInfo {
         this.infoElement.textContent = userInfo.info;
     }
 
-    getAvatar() {
-        return this.avatarElement.src;
-    }
-
     setAvatar(image) {
         this.avatarElement.src = image;
     }

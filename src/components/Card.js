@@ -53,13 +53,7 @@ export class Card {
 
     _handleLikeClick() {
         const newState = !this.likesInfo.state;
-        this.likesInfo = {
-            state: newState,
-            count: this.likesInfo.count + (newState ? 1 : -1),
-        };
-        // проставляем предварительно рассчитаное likesInfo, чтобы создать иллюзию быстро работающего приложения
-        // внутри handleLikeClick выполнится повторный вызов setLikeInfo с данными полученными от сервера
-        this.setLikeInfo(this.likesInfo);
+        this.likeElement.classList.toggle("element__like_active", newState);
         this.handleLikeClick(this, newState);
     }
 

@@ -51,7 +51,7 @@ export class FormValidator {
     }
 
     _validateForm() {
-        let isValidForm = this._validateInputs();
+        const isValidForm = this._validateInputs();
         this._setSubmitButtonState(!isValidForm);
     }
 
